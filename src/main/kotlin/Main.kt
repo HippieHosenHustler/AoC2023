@@ -1,11 +1,11 @@
 fun main(args: Array<String>) {
-    part2()
+    part2_electricBoogaloo()
 }
 
 fun part1() {
     var sum = 0
 
-    File("src/main/resources/Input.txt").forEachLine { it ->
+    File("src/main/resources/Input2.txt").forEachLine { it ->
 
         val res = it.replace("[^0-9]".toRegex(), "")
         val firstNumber = res.first().toString()
@@ -25,7 +25,6 @@ fun part2() {
     var sum = 0
 
     val numbers = mapOf(
-        "zero" to 0,
         "one" to 1,
         "two" to 2,
         "three" to 3,
@@ -41,13 +40,7 @@ fun part2() {
 
     File("src/main/resources/Input.txt").forEachLine { it ->
 
-        var lineReplaced = it
-
-        var list = MutableList<Int>(it.length) {-1}
-
-        //numbers.entries.forEach { entry ->
-          //  lineReplaced = lineReplaced.replace(entry.key.toRegex(), entry.value.toString())
-        //}
+        val list = MutableList<Int>(it.length) {-1}
 
         numbers.entries.forEach { entry ->
             val check = it.indexOf(entry.key)
@@ -67,6 +60,50 @@ fun part2() {
 
         val firstNumber = list.first { item -> item > -1 }
         val lastNumber = list.last { item -> item > -1 }
+
+        val combined = "$firstNumber$lastNumber".toInt()
+
+        println(combined)
+        sum += combined
+        println(sum)
+    }
+
+    println("Part 2")
+    println(sum)
+    println("-------------------")
+}
+
+fun part2_electricBoogaloo() {
+    var sum = 0
+
+    val numbers = mapOf(
+        "one" to "o1e",
+        "two" to "t2o",
+        "three" to "t3e",
+        "four" to "f4r",
+        "five" to "f5e",
+        "six" to "s6x",
+        "seven" to "s7n",
+        "eight" to "e8t",
+        "nine" to "n9e"
+    )
+
+    val onlyNumbers = numbers.values
+
+    File("src/main/resources/Input2.txt").forEachLine { it ->
+
+        var replaced = it
+
+        val list = MutableList<Int>(it.length) {-1}
+
+        numbers.entries.forEach { entry ->
+            replaced = replaced.replace(entry.key, entry.value)
+        }
+
+        val res = replaced.replace("[^0-9]".toRegex(), "")
+
+        val firstNumber = res.first().toString()
+        val lastNumber = res.last().toString()
 
         val combined = "$firstNumber$lastNumber".toInt()
 
